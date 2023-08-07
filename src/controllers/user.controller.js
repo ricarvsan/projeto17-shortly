@@ -61,3 +61,21 @@ export async function aboutMe(req, res) {
         res.status(500).send(err.message)
     }
 }
+
+export async function ranking(req, res) {
+    try {
+        const ranking = await db.query(`
+            SELECT users.id AS id, users.name AS name, COUNT("middleUrls"."userId") AS "linksCount", SUM(visitants) AS "visitCount" FROM session
+            JOIN users ON session."userId" = users.id
+            JOIN "middleUrls" ON users.id = "middleUrls"."userId"
+            JOIN urls ON "middleUrls"."urlsId" = urls.id
+            GROUP BY users.id
+            ORDER BY "visitCount" DESC
+            LIMIT 10;
+        `);
+
+        res.status(200).send(ranking.rows)
+    } catch (err) {
+        res.status(500).send(err.message)
+    }
+}
