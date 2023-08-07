@@ -50,28 +50,3 @@ export async function signin(req, res) {
         res.status(500).send(err.message)
     }
 }
-
-export async function logout(req, res) {
-    const {token} = res.locals.session;
-
-    try {
-        await db.collection('session').deleteOne({token});
-        res.status(200).send('Usuário deslogado com sucesso!')
-
-    } catch (err) {
-        res.status(500).send(err.message)
-    }
-}
-
-export async function logged(req, res) {
-    const {token} = res.locals.session;
-
-    try {
-        const logged = await db.collection('session').findOne({token});
-        if(!logged) res.status(401).send('Usuário não logado!')
-        res.status(200).send('Usuário está logado!')
-
-    } catch (err) {
-        res.status(500).send(err.message)
-    }
-}
