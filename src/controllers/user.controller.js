@@ -50,3 +50,14 @@ export async function signin(req, res) {
         res.status(500).send(err.message)
     }
 }
+
+export async function aboutMe(req, res) {
+
+
+    try {
+
+        res.status(200).send({})
+    } catch (err) {
+        res.status(500).send(err.message)
+    }
+}

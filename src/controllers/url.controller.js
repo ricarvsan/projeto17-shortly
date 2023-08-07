@@ -32,7 +32,7 @@ export async function getUrl(req, res) {
 
         if(!(url.rowCount)) return res.status(404).send({message: 'Url não encontrada!'});
 
-        res.status(201).send({id: url.rows[0].id, shortUrl: url.rows[0].shortUrl, url: url.rows[0].url});
+        res.status(200).send({id: url.rows[0].id, shortUrl: url.rows[0].shortUrl, url: url.rows[0].url});
     } catch (err) {
         res.status(500).send(err.message)
     }
